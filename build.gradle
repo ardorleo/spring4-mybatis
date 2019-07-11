@@ -1,23 +1,17 @@
 apply plugin: "war"
 apply plugin: "idea"
-apply plugin: "jetty"
 apply plugin: "eclipse"
 
 compileJava {
-    sourceCompatibility = 1.6
-    targetCompatibility = 1.6
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 }
 
-jettyRun {
-    httpPort = 9898
-}
 
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 repositories {
-    maven {
-        url "http://maven.oschina.net/content/groups/public/"
-    }
+    jcenter()
 }
 
 configurations {
@@ -30,8 +24,9 @@ sourceSets {
     test.runtimeClasspath += configurations.provided
 }
 
-String springVersion = "4.1.1.RELEASE"
+String springVersion = "4.3.24.RELEASE"
 String slf4jVersion = "1.7.7"
+String jacksonVersion ="2.9.9"
 
 dependencies {
     provided(
@@ -60,9 +55,9 @@ dependencies {
     compile("org.slf4j:slf4j-log4j12:" + slf4jVersion)
 
     //json
-    compile "com.fasterxml.jackson.core:jackson-databind:2.4.3"
-    compile "org.codehaus.jackson:jackson-mapper-asl:1.9.13"
-    compile "org.codehaus.jackson:jackson-core-asl:1.9.13"
+    compile "com.fasterxml.jackson.core:jackson-core:${jacksonVersion}"
+    compile "com.fasterxml.jackson.core:jackson-databind:${jacksonVersion}"
+    compile "com.fasterxml.jackson.core:jackson-annotations:${jacksonVersion}"
 
     //db access
     compile "org.springframework:spring-jdbc:" + springVersion

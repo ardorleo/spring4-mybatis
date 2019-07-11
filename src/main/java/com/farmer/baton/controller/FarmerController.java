@@ -4,9 +4,9 @@ import com.farmer.baton.model.Farmer;
 import com.farmer.baton.repo.FarmerMapper;
 import com.farmer.baton.repo.impl.FarmerRepositoryImpl;
 import com.farmer.baton.service.FarmerService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -45,9 +45,8 @@ public class FarmerController {
     }
 
     @RequestMapping(value = "/search", method = RequestMethod.GET, produces = "text/html;charset=UTF-8")
-    public
     @ResponseBody
-    String search() throws Exception {
+    public String search() throws Exception {
         List<Farmer> farmers = farmerRepository.findAll();
         String resultArrayJson = mapper.writeValueAsString(farmers);
         log.debug(format("resultArrayJson: %s", resultArrayJson));
